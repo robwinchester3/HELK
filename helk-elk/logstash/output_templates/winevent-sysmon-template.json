@@ -1,0 +1,48 @@
+{
+  "template" : "logs-endpoint-winevent-sysmon-*",
+  "settings" : {
+    "index.refresh_interval": "5s"
+  },
+  "mappings":{
+    "doc":{
+      "dynamic_templates": [{
+        "strings":{
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "text",
+            "norms": false,
+            "fields": {
+              "raw": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }],
+      "properties":{
+        "@timestamp":{"type":"date"},
+        "dst_port_number":{"type":"integer"},
+        "event_id":{"type":"integer"},
+        "geoip":{
+          "properties":{
+            "dma_code":{"type":"integer"},
+            "latitude":{"type":"float"},
+            "location":{"type": "geo_point"},
+            "longitude":{"type":"float"}
+          }
+        },
+        "network_initiated":{"type":"boolean"},
+        "process_id":{"type":"integer"},
+        "thread_newthreadid":{"type":"integer"},
+        "image_signed":{"type":"boolean"},
+        "process_parent_id":{"type":"integer"},
+        "process_target_id":{"type":"integer"},
+        "terminal_session_id":{"type":"integer"},
+        "src_port_number":{"type":"integer"},
+        "thread_id":{"type":"integer"},
+        "version":{"type":"integer"}
+      }
+    }
+  }
+}
